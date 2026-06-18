@@ -1,3 +1,7 @@
+# Worldle6 Project
+
+Making a worldle but with 6 letters instead of the usual 5
+
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
