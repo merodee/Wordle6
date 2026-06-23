@@ -1,7 +1,7 @@
 import { Lettergrid } from "~/components/lettergrid"
 
 
-const word: string[] = [];
+let word: string[] = [];
 function LetterInput(letter: string, id: number, row: number) {
     console.log(letter, id);
     if (letter != '') {
@@ -14,32 +14,21 @@ function LetterInput(letter: string, id: number, row: number) {
         word.pop();
     }
 
-    const focusedInput = document.activeElement as HTMLElement;
-    focusedInput?.addEventListener("keydown", function (event) {
-        if (event.key === "ArrowLeft") {
-            console.log("Go Back");
-            const prevInput = document.querySelector(`#letter${id}${row}`) as HTMLElement;
-            prevInput?.focus();
-        }
-    });
-
-    const lastInput = document.querySelector(`#letter${5}${row}`) as HTMLElement;
-    lastInput.addEventListener("keydown", function (event) {
-        // Check if the pressed key is "Enter"
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent default form submission if necessary
-            console.log("Enter key was pressed!");
-            console.log(word, row)
-        }
-    });
-
 }
 
+function CheckEnter (id: number, row: number, e: React.KeyboardEvent<HTMLInputElement>) {
+    if (id === 5 && e.key === "Enter") {
+        console.log('Enter pressed', word);
+        word = [];
+        const nextInput = document.querySelector(`#letter${0}${row+1}`) as HTMLElement;
+        nextInput?.focus();
+    }
+}
 
 function Word(row: number) {
     const letters = [];
     for (let i = 0; i < 6; i++) {
-        letters.push(<Lettergrid id={i} letterInput={LetterInput} key={i} row={row}></Lettergrid>)
+        letters.push(<Lettergrid id={i} letterInput={LetterInput} key={i} row={row} checkEnter={CheckEnter}></Lettergrid>)
     }
     return letters;
 }

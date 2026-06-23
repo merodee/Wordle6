@@ -2,12 +2,13 @@ interface Props {
     id: number;
     letterInput: (letter: string, id: number, row: number) => void
     row: number;
+    checkEnter: (id: number, row: number, e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 
-export function Lettergrid({ id, letterInput, row }: Props) {
+export function Lettergrid({ id, letterInput, row, checkEnter }: Props) {
     return (
-        <input name="letter" maxLength={1} type="text" onChange={(e) => letterInput(e.target.value, id, row)} style={{
+        <input name="letter" maxLength={1} type="text" onChange={(e) => letterInput(e.target.value, id, row)} onKeyDown={(e) => checkEnter(id, row, e)} style={{
             backgroundColor: 'black', width: '50px',
             height: '50px',
             textAlign: 'center',       // Keeps typed text centered
