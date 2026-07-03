@@ -1,4 +1,5 @@
 import { Lettergrid } from "~/components/lettergrid"
+import wordledata from '../data/wordledata.json'
 
 
 let word: string[] = [];
@@ -16,12 +17,28 @@ function LetterInput(letter: string, id: number, row: number) {
 
 }
 
-function CheckEnter (id: number, row: number, e: React.KeyboardEvent<HTMLInputElement>) {
-    if (id === 5 && e.key === "Enter") {
-        console.log('Enter pressed', word);
-        word = [];
-        const nextInput = document.querySelector(`#letter${0}${row+1}`) as HTMLElement;
+function CheckEnter(id: number, row: number, e: React.KeyboardEvent<HTMLInputElement>) {
+    if (id === 5 && e.key === "Enter" && word.length === 6) {
+        const nextInput = document.querySelector(`#letter${0}${row + 1}`) as HTMLElement;
         nextInput?.focus();
+        CheckWord(word.join(''))
+        // clear word
+        word = [];
+    }
+}
+
+function CheckWord(word: string) {
+    console.log('Check word', word)
+    console.log('wordle letter',wordledata['wordledata'][0][0] )
+    if (word == wordledata['wordledata'][0]) {
+        console.log('correct guess');
+    } else {
+        // check which letters are in the right position
+        for (let i = 0; i < 6; i++) {
+            if (word.charAt(i) == wordledata['wordledata'][0][i]) {
+                console.log('letter in correct position', i)
+            }
+        }
     }
 }
 
