@@ -2,6 +2,7 @@
     "wordledata": [
         "wordle",
         "hanger",
-        "possum"
+        "possum",
+        "errors"
     ]
 }
