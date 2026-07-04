@@ -1,5 +1,8 @@
 import { Lettergrid } from "~/components/lettergrid"
 import wordledata from '../data/wordledata.json'
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 let word: string[] = [];
@@ -29,9 +32,10 @@ function CheckEnter(id: number, row: number, e: React.KeyboardEvent<HTMLInputEle
 
 function CheckWord(word: string) {
     console.log('Check word', word)
-    console.log('wordle letter',wordledata['wordledata'][0][0] )
+    console.log('wordle letter', wordledata['wordledata'][0][0])
     if (word == wordledata['wordledata'][0]) {
         console.log('correct guess');
+        toast.success("You guessed it!")
     } else {
         // check which letters are in the right position
         for (let i = 0; i < 6; i++) {
@@ -41,6 +45,7 @@ function CheckWord(word: string) {
         }
     }
 }
+
 
 function Word(row: number) {
     const letters = [];
@@ -65,7 +70,18 @@ export function Worldle6() {
                 <br></br>
                 {Word(5)}
                 <br></br>
-
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </div>
         </main >
     )
