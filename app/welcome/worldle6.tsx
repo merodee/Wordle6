@@ -35,12 +35,16 @@ function CheckWord(word: string) {
     console.log('wordle letter', wordledata['wordledata'][0][0])
     if (word == wordledata['wordledata'][0]) {
         console.log('correct guess');
-        toast.success("You guessed it!")
+        toast.success("You guessed it!");
     } else {
         // check which letters are in the right position
         for (let i = 0; i < 6; i++) {
             if (word.charAt(i) == wordledata['wordledata'][0][i]) {
-                console.log('letter in correct position', i)
+                console.log('letter in correct position', i);
+            }
+            // check which letters are in the word, but not in the right position
+            else if (word.charAt(i) !== wordledata['wordledata'][0][i] && wordledata['wordledata'][0].includes(word.charAt(i))) {
+                console.log('letter ' + word.charAt(i) + ' in word, but incorrect position');
             }
         }
     }
