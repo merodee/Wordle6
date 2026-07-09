@@ -24,13 +24,13 @@ function CheckEnter(id: number, row: number, e: React.KeyboardEvent<HTMLInputEle
     if (id === 5 && e.key === "Enter" && word.length === 6) {
         const nextInput = document.querySelector(`#letter${0}${row + 1}`) as HTMLElement;
         nextInput?.focus();
-        CheckWord(word.join(''))
+        CheckWord(word.join(''), row)
         // clear word
         word = [];
     }
 }
 
-function CheckWord(word: string) {
+function CheckWord(word: string, row: number) {
     console.log('Check word', word)
     console.log('wordle letter', wordledata['wordledata'][0][0])
     if (word == wordledata['wordledata'][0]) {
@@ -41,6 +41,11 @@ function CheckWord(word: string) {
         for (let i = 0; i < 6; i++) {
             if (word.charAt(i) == wordledata['wordledata'][0][i]) {
                 console.log('letter in correct position', i);
+                const letterInput = document.querySelector(`#letter${i}${row}`) as HTMLElement;
+                if (letterInput) {
+                    console.log('here at input')
+                    letterInput.style.backgroundColor = 'green';
+                }
             }
             // check which letters are in the word, but not in the right position
             else if (word.charAt(i) !== wordledata['wordledata'][0][i] && wordledata['wordledata'][0].includes(word.charAt(i))) {
