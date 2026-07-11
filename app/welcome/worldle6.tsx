@@ -31,8 +31,7 @@ function CheckEnter(id: number, row: number, e: React.KeyboardEvent<HTMLInputEle
 }
 
 function CheckWord(word: string, row: number) {
-    console.log('Check word', word)
-    console.log('wordle letter', wordledata['wordledata'][0][0])
+    const correctLetters: string[] = [];
     if (word == wordledata['wordledata'][0]) {
         console.log('correct guess');
         toast.success("You guessed it!");
@@ -40,6 +39,7 @@ function CheckWord(word: string, row: number) {
         // check which letters are in the right position
         for (let i = 0; i < 6; i++) {
             if (word.charAt(i) == wordledata['wordledata'][0][i]) {
+                correctLetters.push(word.charAt(i))
                 console.log('letter in correct position', i);
                 const letterInput = document.querySelector(`#letter${i}${row}`) as HTMLElement;
                 if (letterInput) {
@@ -47,17 +47,24 @@ function CheckWord(word: string, row: number) {
                     letterInput.style.backgroundColor = 'green';
                 }
             }
-            // check which letters are in the word, but not in the right position
-            else if (word.charAt(i) !== wordledata['wordledata'][0][i] && wordledata['wordledata'][0].includes(word.charAt(i))) {
-                console.log('letter ' + word.charAt(i) + ' in word, but incorrect position');
+        }
+        // letters in word, but not in right position
+        for (let j = 0; j < 6; j++) {
+            if (wordledata['wordledata'][0].includes(word.charAt(j)) && word.charAt(j) !== wordledata['wordledata'][0][j] && !correctLetters.includes(word.charAt(j))) {
+                console.log('letter ' + word.charAt(j) + ' in word, but incorrect position ' + wordledata['wordledata'][0].indexOf(word.charAt(j)))
+                const letterInput = document.querySelector(`#letter${j}${row}`) as HTMLElement;
+                if (letterInput) {
+                    letterInput.style.backgroundColor = 'orange';
+                }
             }
         }
+
     }
 }
 
 
 function Word(row: number) {
-    const letters = [];
+    const letters: React.JSX.Element[] = [];
     for (let i = 0; i < 6; i++) {
         letters.push(<Lettergrid id={i} letterInput={LetterInput} key={i} row={row} checkEnter={CheckEnter}></Lettergrid>)
     }
