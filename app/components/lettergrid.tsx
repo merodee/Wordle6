@@ -13,7 +13,8 @@ export function Lettergrid({ id, letterInput, row, checkEnter }: Props) {
             height: '50px',
             textAlign: 'center',       // Keeps typed text centered
             border: '1px solid #ccc', // Sets a clear border
-            borderRadius: '0px'
+            borderRadius: '10px',
+            fontFamily:  'Georgia'
         }} className="mr-2 mb-8" id={`letter${id}${row}`} ></input>
     )
 };
